@@ -1,0 +1,47 @@
+function registerEvent() {
+
+    let form = document.getElementById("eventForm");
+    let feedback = document.getElementById("feedback");
+ 
+    try {
+        if (!form.checkValidity()) {
+          throw form.reportValidity();
+    }
+ 
+    let studentName = document.getElementById("studentName").value;
+    let email = document.getElementById("email").value;
+    let age = Number(document.getElementById("age").value);
+    let eventName = document.getElementById("eventName").value;
+ 
+    if (studentName.length < 3) {
+        throw "Name must have at least 3 characters.";
+    } if (age < 8 || age > 18) {
+        throw "Age must be between 8 and 18.";
+    } if (eventName === "") {
+          throw "Please select an event.";
+    }
+    feedback.className = "";
+    feedback.innerHTML = "Checking your registration details...";
+    setTimeout(function() {
+        let passNumber = Math.floor(Math.random() * 9000) + 1000;
+        feedback.className = "success";
+        feedback.innerHTML =
+            "Registration Successful!<br>" +
+            "Student Name: " + studentName + "<br>" +
+            "Email: " + email + "<br>" +
+            "Age: " + age + "<br>" +
+            "Event: " + eventName + "<br>" +
+            "Your Event Pass Number: EVT-" + passNumber;
+        }, 2000);
+ 
+      } catch (error) {
+ 
+        feedback.className = "error";
+ 
+        if (error !== undefined) {
+          feedback.innerHTML = "Registration failed: " + error;
+        } else {
+          feedback.innerHTML = "Please complete all required fields correctly.";
+        }
+    }
+}
